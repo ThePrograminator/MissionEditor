@@ -24,7 +24,7 @@ const CodeEditor = (props) => {
           </Tab>
         ) : null}
         <Tab eventKey="series" title="Series" style={{ minHeight: "inherit" }}>
-          <SeriesEditor series={props.series} setSeries={props.setSeries} />
+          <SeriesEditor series={props.series} setSeries={props.setSeries} setMissionTabs={props.setMissionTabs}/>
         </Tab>
       </Tabs>
     </aside>

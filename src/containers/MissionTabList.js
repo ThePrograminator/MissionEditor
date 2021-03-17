@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NodeEditor from "./NodeEditor";
+import MissionTab from "./MissionTab";
 import TabHeader from "../components/TabHeader";
 import { Container, Row, Tabs, Tab, ButtonGroup, Button } from "react-bootstrap";
 
@@ -25,21 +25,23 @@ const MissionList = (props) => {
       <Tabs defaultActiveKey="createMissionFile" id="uncontrolled-tab-example">
         {props.missionTabs.length > 0
           ? props.missionTabs.map((missionTab) => {
+              console.log("MissionTabs loaded", props.missionTabs)
               return (
                 <Tab
-                  key={missionTab.fileName}
+                  key={missionTab.name}
                   eventKey={"missionTab_" + missionTab.id}
-                  title={missionTab.fileName}
+                  title={missionTab.name}
                   style={{ minHeight: "inherit" }}
                 >
                   <Container fluid style={{ minHeight: "90vh" }}>
                     <Row style={{ minHeight: "90vh" }}>
-                      <NodeEditor
-                        missions={props.missions}
-                        setMissions={props.setMissions}
-                        series={props.series}
-                        setSeries={props.setSeries}
-                        edges={props.edges}
+                      <MissionTab
+                        missions={missionTab.missions}
+                        series={missionTab.series}
+                        edges={missionTab.edges}
+                        missionTabs={props.missionTabs}
+                        setMissionTabs={props.setMissionTabs}
+                        fileID={missionTab.id}
                       />
                     </Row>
                   </Container>
@@ -53,3 +55,15 @@ const MissionList = (props) => {
 };
 
 export default MissionList;
+
+/*
+
+
+<NodeEditor
+                        missions={props.missions}
+                        setMissions={props.setMissions}
+                        series={props.series}
+                        setSeries={props.setSeries}
+                        edges={props.edges}
+                      />
+                      */

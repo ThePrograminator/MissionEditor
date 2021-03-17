@@ -10,10 +10,15 @@ const Settings = (props) => {
     let AllFiles = [];
     [...e.target.files].map((file) => AllFiles.push(file));
     let allSeries = [];
+    let allMissions = [];
+    let allMissionTabs = [];
 
     Reader.readAllFiles(AllFiles)
       .then((result) => {
+        console.log("result", result);
         result.map((res) => {
+          allSeries = [];
+          allMissions = [];
           var wholeString = res.content;
           wholeString = String(wholeString);
           let regex = new RegExp("#.+\r\n", "g");
@@ -33,35 +38,36 @@ const Settings = (props) => {
             wholeString = wholeString.substring(++index, wholeString.length);
             console.log("\n");
           }
+
+          console.log("allSeries", allSeries);
+
+          allSeries.map((series) =>
+            series.missions.map((mission, index) => {
+              mission.position.x = series.slot * 150;
+              if (mission.data.position !== -1)
+                mission.position.y = mission.data.position * 150;
+              else {
+                mission.data.position = index + 1;
+                mission.position.y = mission.data.position * 150;
+              }
+              mission.data.selectedSeries = series.id;
+              allMissions.push(mission);
+            })
+          );
+          const connections = Reader.createConnections(allMissions);
+          let removedFileExtention = res.name.substring(0, res.name.indexOf("."))
+          const newMissionTab = {
+            id: getFileId(),
+            name: removedFileExtention,
+            fileName: res.name,
+            series: allSeries,
+            missions: allMissions,
+            edges: connections,
+          };
+          allMissionTabs.push(newMissionTab);
         });
-        console.log("allSeries", allSeries);
-        let allMissions = [];
-        allSeries.map((series) =>
-          series.missions.map((mission, index) => {
-            mission.position.x = series.slot * 150;
-            if (mission.data.position !== -1)
-              mission.position.y = mission.data.position * 150;
-            else {
-              mission.data.position = index + 1;
-              mission.position.y = mission.data.position * 150;
-            }
-            mission.data.selectedSeries = series.id;
-            allMissions.push(mission);
-          })
-        );
-        const connections = Reader.createConnections(allMissions);
-        props.setEdges(connections);
-        //allMissions = allMissions.concat(connections);
-        props.setSeries(allSeries);
-        props.setMissions(allMissions);
-        const newMissionTab = {
-          id: getFileId(),
-          fileName: "newFile",
-          series: allSeries,
-          missions: allMissions,
-          edges: connections,
-        };
-        props.setMissionTabs([...props.missionTabs, newMissionTab]);
+        console.log("allMissionTabs", allMissionTabs);
+        props.setMissionTabs((els) => els.concat(allMissionTabs));
       })
       .catch((err) => {
         alert(err);
@@ -239,3 +245,67 @@ if (string.search("{") != -1) {
     }
 
     */
+
+/*
+
+
+
+     Reader.readAllFiles(AllFiles)
+      .then((result) => {
+        console.log("result", result);
+        result.map((res) => {
+          //allSeries = [];
+          //allMissions = [];
+          var wholeString = res.content;
+          wholeString = String(wholeString);
+          let regex = new RegExp("#.+\r\n", "g");
+          wholeString = wholeString.replaceAll(regex, "\r\n");
+          while (true) {
+            var first = wholeString.indexOf("{");
+            if (first === -1) break;
+
+            //Find series
+            var index = Reader.findClosingBracketIndex(wholeString, first);
+            var stringArr = wholeString.substring(0, ++index);
+            var seriesText = Reader.cleanUpSeries(stringArr);
+            const series = Reader.handleSeries(seriesText);
+            allSeries.push(series);
+
+            //remove series from string
+            wholeString = wholeString.substring(++index, wholeString.length);
+            console.log("\n");
+          }
+        });
+        console.log("allSeries", allSeries);
+
+        allSeries.map((series) =>
+          series.missions.map((mission, index) => {
+            mission.position.x = series.slot * 150;
+            if (mission.data.position !== -1)
+              mission.position.y = mission.data.position * 150;
+            else {
+              mission.data.position = index + 1;
+              mission.position.y = mission.data.position * 150;
+            }
+            mission.data.selectedSeries = series.id;
+            allMissions.push(mission);
+          })
+        );
+        const connections = Reader.createConnections(allMissions);
+        props.setEdges(connections);
+        //allMissions = allMissions.concat(connections);
+        props.setSeries(allSeries);
+        props.setMissions(allMissions);
+        const newMissionTab = {
+          id: getFileId(),
+          fileName: "newFile",
+          series: allSeries,
+          missions: allMissions,
+          edges: connections,
+        };
+        props.setMissionTabs([...props.missionTabs, newMissionTab]);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };*/

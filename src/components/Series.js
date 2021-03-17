@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Form,
   FormControl,
@@ -12,6 +12,7 @@ import RenderToolTip from "./RenderToolTip";
 import "../Editor.css";
 
 const Series = (props) => {
+  const mounted = useRef(false);
   const [name, setName] = useState(props.series.name);
   const [slot, setSlot] = useState(props.series.slot);
   const [generic, setGeneric] = useState(props.series.generic);
@@ -26,6 +27,11 @@ const Series = (props) => {
   const [color, setColor] = useState(props.series.color);
 
   useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    console.log("Series useEffect");
     props.setSeries((els) =>
       els.map((el) => {
         if (el.id === props.series.id) {

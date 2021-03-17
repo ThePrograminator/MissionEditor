@@ -21,7 +21,7 @@ const SeriesEditor = (props) => {
     props.setSeries((els) => els.concat(newNode));
     id++;
     console.log(props.series.length);
-  }, [props.setSeries]);
+  }, [props.setSeries, props.setMissionTabs]);
 
   return (
     <div>

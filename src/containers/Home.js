@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import MissionList from "./MissionTab";
 import MissionTabList from "./MissionTabList";
 import Settings from "./Settings";
 import { Container, Row, Tabs, Tab } from "react-bootstrap";
@@ -27,12 +26,13 @@ const Home = (props) => {
           >
             <Row style={{ minHeight: "90vh" }}>
               <MissionTabList
-                missions={missions}
-                setMissions={setMissions}
-                series={series}
-                setSeries={setSeries}
-                edges={edges}
+                //missions={missions}
+                //setMissions={setMissions}
+                //series={series}
+                //setSeries={setSeries}
+                //edges={edges}
                 missionTabs={missionTabs}
+                setMissionTabs={setMissionTabs}
               />
             </Row>
           </Container>
