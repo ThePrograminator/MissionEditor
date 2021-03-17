@@ -1,0 +1,13 @@
+.nav-item {
+    position: relative;
+    display: inline-block;
+    /*padding: 0.5rem 1rem;*/
+}
+
+#closeTab {
+    position: absolute;
+    color: red;
+    top: 0px;
+    right: -0px;
+    padding-left: 4px;
+}
