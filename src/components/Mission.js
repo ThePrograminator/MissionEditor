@@ -154,17 +154,17 @@ const Mission = (props) => {
       </Form.Group>
 
       <Form.Group controlId="formIcon">
-        <Form.Label>Icon</Form.Label>
-        <FormControl
-          placeholder="icon"
-          aria-label="icon"
-          value={icon}
-          aria-describedby="basic-addon1"
-          onChange={(evt) => setIcon(evt.target.value)}
-        />
-        <Form.Text className="text-muted">
-          The icon to use for the mission
-        </Form.Text>
+          <Form.Label>Icon</Form.Label>
+          <FormControl
+            placeholder="icon"
+            aria-label="icon"
+            value={icon}
+            aria-describedby="basic-addon1"
+            onChange={(evt) => setIcon(evt.target.value)}
+          />
+          <Form.Text className="text-muted">
+            The icon to use for the mission
+          </Form.Text>
       </Form.Group>
 
       <Form.Group controlId="formGeneric">

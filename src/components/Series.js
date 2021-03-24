@@ -102,7 +102,7 @@ const Series = (props) => {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formSlot">
+        <Form.Group controlId="formGeneric">
           <Form.Check
             type="checkbox"
             label="Generic"
@@ -141,6 +141,7 @@ const Series = (props) => {
         <Form.Group controlId="formPotentialOnLoad">
           <Form.Label>Potential on Load</Form.Label>
           <FormControl
+            as="textarea"
             placeholder="potentialOnLoad"
             aria-label="Potential On Load"
             value={potentialOnLoad}
@@ -156,6 +157,7 @@ const Series = (props) => {
         <Form.Group controlId="formPotential">
           <Form.Label>Potential</Form.Label>
           <FormControl
+            as="textarea"
             placeholder="potential"
             aria-label="Potential"
             value={potential}

@@ -26,11 +26,6 @@ const Home = (props) => {
           >
             <Row style={{ minHeight: "90vh" }}>
               <MissionTabList
-                //missions={missions}
-                //setMissions={setMissions}
-                //series={series}
-                //setSeries={setSeries}
-                //edges={edges}
                 missionTabs={missionTabs}
                 setMissionTabs={setMissionTabs}
               />

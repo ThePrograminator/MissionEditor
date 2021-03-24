@@ -9,6 +9,7 @@ import ReactFlow, {
   isNode,
 } from "react-flow-renderer";
 import { Button, Form, Col } from "react-bootstrap";
+import Writer from "../Writer";
 
 import CodeEditor from "./CodeEditor";
 import "../Provider.css";
@@ -141,6 +142,16 @@ const MissionTab = (props) => {
     console.log("Elements End", elements);
   }, [setElements]);
 
+  const onExport = useCallback(() => {
+    const fileData = Writer.exportMissionTree(series, elements);
+    const blob = new Blob([fileData], {type: "text/plain"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = 'filename.txt';
+    link.href = url;
+    link.click();
+  }, []);
+
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
 
@@ -159,13 +170,13 @@ const MissionTab = (props) => {
                     />
                   </Form.Group>
                 </Col>
-                <Col lg={true}>
+                <Col lg={2}>
                   <Button onClick={onAdd} className="mb-2">
                     Add Mission
                   </Button>
                 </Col>
-                <Col lg={true}>
-                  <Button onClick={onAdd} className="mb-2">
+                <Col lg={5}>
+                  <Button onClick={onExport} className="mb-2">
                     Export Mission tree
                   </Button>
                 </Col>
